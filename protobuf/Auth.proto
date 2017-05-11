@@ -1,0 +1,17 @@
+syntax = "proto3";
+option java_package = "pl.why.auth.proto";
+option optimize_for = SPEED;
+
+message User {
+    string email = 1;
+    string name = 2;
+    string password = 3;
+    string key = 4;
+    string role = 5;
+    int64 createdOn = 6;
+    bool deleted = 7;
+}
+
+message UserCreated {
+    User user = 1;
+}
