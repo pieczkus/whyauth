@@ -9,7 +9,7 @@ import pl.why.auth.proto.Auth
 import v1.user.command.UserEntity.Command.CreateUser
 import v1.user.command.UserEntity.Event.UserCreated
 
-case class UserData(email: String, name: String, password: String, key: String = UUID.randomUUID().toString, role: String = "User",
+case class UserData(email: String, key: String = UUID.randomUUID().toString, name: String, password: String, role: String = "User",
                     createdOn: Long = System.currentTimeMillis(), deleted: Boolean = false) extends EntityFieldsObject[String, UserData] {
   def assignId(id: String): UserData = this.copy(email = id)
 

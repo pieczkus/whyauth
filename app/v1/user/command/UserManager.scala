@@ -44,7 +44,7 @@ class UserManager extends Aggregate[UserData, UserEntity] {
 
         case util.Success(EmptyResult) =>
 
-          val user = UserData(input.email, input.name, input.password.bcrypt)
+          val user = UserData(input.email, name = input.name, password = input.password.bcrypt)
           entityShardRegion.tell(CreateUser(user), caller)
 
         case _ =>

@@ -13,6 +13,8 @@ class AuthRouter @Inject()(controller: AuthController) extends SimpleRouter {
     case POST(p"/") =>
       controller.authenticate
 
+    case POST(p"/authorize") =>
+      controller.authorize
   }
 
 }
