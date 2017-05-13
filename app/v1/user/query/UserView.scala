@@ -17,7 +17,7 @@ import v1.user.command.UserEntity.Event.UserCreated
 import v1.user.query.UserViewBuilder.UserRM
 
 trait UserReadModel {
-  def indexRoot = "post"
+  def indexRoot = "user"
 
   def entityType = UserEntity.EntityType
 }
