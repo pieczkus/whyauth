@@ -30,8 +30,8 @@ object UserResource {
 }
 
 class UserResourceHandler @Inject()(routerProvider: Provider[UserRouter],
-                                    @Named("user-manager") postManager: ActorRef,
-                                    @Named("user-view") postView: ActorRef)
+                                    @Named("user-manager") userMnager: ActorRef,
+                                    @Named("user-view") userView: ActorRef)
                                    (implicit ec: ExecutionContext) {
 
   import akka.pattern.ask
@@ -40,7 +40,7 @@ class UserResourceHandler @Inject()(routerProvider: Provider[UserRouter],
   implicit val timeout: Timeout = 5.seconds
 
   def create(input: AddUserInput): Future[ServiceResult[Any]] = {
-    (postManager ? AddUser(input)).mapTo[ServiceResult[UserData]].map {
+    (userMnager ? AddUser(input)).mapTo[ServiceResult[UserData]].map {
       case FullResult(_) => SuccessResult
       case _ => EmptyResult
     }

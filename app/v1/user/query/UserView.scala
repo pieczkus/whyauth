@@ -5,7 +5,7 @@ import javax.inject.{Inject, Named}
 import akka.actor.{ActorRef, Props}
 import akka.persistence.query.EventEnvelope
 import akka.stream.ActorMaterializer
-import com.sksamuel.elastic4s.ElasticDsl.{boolQuery, rangeQuery, termQuery}
+import com.sksamuel.elastic4s.ElasticDsl.{boolQuery, termQuery}
 import com.sksamuel.elastic4s.searches.queries.QueryDefinition
 import com.sksamuel.elastic4s.searches.sort.FieldSortDefinition
 import org.elasticsearch.search.sort.SortOrder

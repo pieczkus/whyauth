@@ -17,7 +17,7 @@ object Dependencies {
   val elastic4sXpack = "com.sksamuel.elastic4s" %% "elastic4s-xpack-security" % elastic4sVersion
 
   val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.1.3"
-  val jwt = "com.nimbusds" % "nimbus-jose-jwt" % "4.7"
+  val jwt = "com.nimbusds" % "nimbus-jose-jwt" % "4.37.1"
 
   val json4sVersion = "3.2.9"
   val json4sNative = "org.json4s" %% "json4s-native" % json4sVersion
@@ -25,7 +25,7 @@ object Dependencies {
 
   val proto = "com.trueaccord.scalapb" %% "scalapb-runtime" % com.trueaccord.scalapb.compiler.Version.scalapbVersion
 
-  val bcrypt = "com.github.t3hnar" % "scala-bcrypt_2.11" % "2.5"
+  val bcrypt = "com.github.t3hnar" %% "scala-bcrypt" % "3.0"
 
   val scalaUri = "com.netaporter" %% "scala-uri" % "0.4.16"
   val scalaGuice = "net.codingwell" %% "scala-guice" % "4.1.0"
@@ -59,7 +59,9 @@ object Dependencies {
     proto,
     elastic4s,
     elastic4sXpack,
-    jodaConvert
+    jodaConvert,
+    jwt,
+    bcrypt
   )
 }
 

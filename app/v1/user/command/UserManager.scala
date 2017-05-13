@@ -7,6 +7,7 @@ import pl.why.common._
 import v1.user.AddUserInput
 import v1.user.command.UserEntity.Command.CreateUser
 import v1.user.command.UserManager.{AddUser, FindUserByEmail}
+import com.github.t3hnar.bcrypt._
 
 object UserManager {
   val Name = "user-manager"
@@ -43,7 +44,7 @@ class UserManager extends Aggregate[UserData, UserEntity] {
 
         case util.Success(EmptyResult) =>
 
-          val user = UserData(input.email, input.name, input.password)
+          val user = UserData(input.email, input.name, input.password.bcrypt(generateSalt))
           entityShardRegion.tell(CreateUser(user), caller)
 
         case _ =>
