@@ -6,7 +6,8 @@ import com.google.common.base.Strings
 import com.nimbusds.jose.{JWSAlgorithm, JWSHeader}
 import com.nimbusds.jwt.{JWTClaimsSet, SignedJWT}
 import org.joda.time.DateTime
-import v1.auth.jwt.JwtHelper.{Invalid, Valid, ValidationResult}
+import play.api.libs.json.{JsValue, Json, Writes}
+import v1.auth.jwt.JwtHelper.ValidationResult
 import v1.user.command.UserData
 
 import scala.util.Try
@@ -14,11 +15,15 @@ import scala.concurrent.Future
 
 object JwtHelper {
 
-  sealed trait ValidationResult
+  case class ValidationResult(valid: Boolean)
 
-  case object Valid extends ValidationResult
-
-  case object Invalid extends ValidationResult
+  implicit val implicitWrites = new Writes[ValidationResult] {
+    def writes(u: ValidationResult): JsValue = {
+      Json.obj(
+        "valid" -> u.valid
+      )
+    }
+  }
 
 }
 
@@ -45,19 +50,15 @@ class JwtHelper @Inject()(jwtSecret: JwtSecret) {
 
   def validateToken(token: String): Future[ValidationResult] = {
     if (Strings.isNullOrEmpty(token) || !token.startsWith(AUTHORIZATION_TOKEN_VALID_START)) {
-      Future.successful(Invalid)
+      Future.successful(ValidationResult(false))
     } else {
       Try(SignedJWT.parse(token.replace(AUTHORIZATION_TOKEN_VALID_START, ""))).toOption match {
         case Some(t) =>
           val valid = Try(t.verify(jwtSecret.verifier)).getOrElse(false)
           val expired = isTokenExpired(t)
-          if (valid && !expired) {
-            Future.successful(Valid)
+          Future.successful(ValidationResult(valid && !expired))
 
-          } else {
-            Future.successful(Invalid)
-          }
-        case _ => Future.successful(Invalid)
+        case _ => Future.successful(ValidationResult(false))
       }
     }
   }

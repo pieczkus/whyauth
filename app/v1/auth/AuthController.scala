@@ -8,7 +8,7 @@ import play.api.i18n.I18nSupport
 import play.api.libs.json.Json
 import play.api.mvc._
 import v1.auth.jwt.JwtHelper
-import v1.auth.jwt.JwtHelper.{Invalid, Valid}
+import v1.auth.jwt.JwtHelper.ValidationResult
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -34,8 +34,8 @@ class AuthController @Inject()(cc: ControllerComponents, handler: AuthHandler)(i
 
   def authorize: Action[AnyContent] = Action.async { implicit request =>
     handler.validateToken(request.headers.get("Authorization").getOrElse("")).map {
-      case Invalid => Ok
-      case Valid => Unauthorized
+      case vr: ValidationResult if vr.valid => Ok(Json.toJson(vr))
+      case _ => Unauthorized
     }
   }
 
