@@ -10,7 +10,7 @@ class AuthRouter @Inject()(controller: AuthController) extends SimpleRouter {
 
   override def routes: Routes = {
 
-    case POST(p"/") =>
+    case POST(p"/login") =>
       controller.authenticate
 
     case POST(p"/authorize") =>
