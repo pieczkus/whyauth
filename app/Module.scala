@@ -10,8 +10,7 @@ import v1.user.command.UserManager
 import v1.user.query.UserView
 
 class Module (environment: Environment, configuration: Configuration)
-  extends AbstractModule
-    with ScalaModule with AkkaGuiceSupport {
+  extends AbstractModule with ScalaModule with AkkaGuiceSupport {
 
   override def configure() = {
 

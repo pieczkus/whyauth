@@ -14,6 +14,7 @@ object Common extends AutoPlugin {
     version := "1.0-SNAPSHOT",
     resolvers += Resolver.typesafeRepo("releases"),
     resolvers += Resolver.sonatypeRepo("releases"),
+    resolvers += Resolver.bintrayRepo("hseeberger", "maven"),
     resolvers += Resolver.mavenLocal,
     resolvers += "elasticsearch-releases" at "https://artifacts.elastic.co/maven",
     javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
