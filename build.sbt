@@ -15,12 +15,11 @@ lazy val root = (project in file("."))
   .enablePlugins(Common, PlayScala, GatlingPlugin, JavaAppPackaging, DockerPlugin)
   .configs(GatlingTest)
   .settings(inConfig(GatlingTest)(Defaults.testSettings): _*)
-  .settings(PB.protoSources in Compile += baseDirectory.value / "protobuf")
   .settings(
     name := """why-auth""",
     scalaSource in GatlingTest := baseDirectory.value / "/gatling/simulation",
     //TODO: remove after akka-persistence-cassandra bump
-    libraryDependencies += "com.datastax.cassandra"  % "cassandra-driver-core" % "3.2.0",
+//    libraryDependencies += "com.datastax.cassandra"  % "cassandra-driver-core" % "3.2.0",
     libraryDependencies ++= playDependencies,
     libraryDependencies ++= akkaDependencies,
     libraryDependencies ++= arrDependencies,
